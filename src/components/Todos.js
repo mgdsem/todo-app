@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
 import Input from './Input';
+import Button from './Button';
 
 class Todos extends Component {
     constructor(props) {
         super(props);
 
         this.onTodoChange = this.onTodoChange.bind(this);
+        this.onAddTodo = this.onAddTodo.bind(this);
 
         this.state = {
             todos: [],
@@ -16,6 +18,25 @@ class Todos extends Component {
 
     onTodoChange(e) {
         this.setState({ currentTodoValue: e.target.value })
+    }
+
+    onAddTodo(e) {
+        const newTodo = {
+            text: this.state.currentTodoValue,
+            isDone: false,
+            // id, 
+            // created at
+        }
+
+        this.setState(prevState => {
+            const prevTodos = prevState.todos;
+            prevTodos.push(newTodo);
+            return {
+                todos: prevTodos
+            }
+        })
+
+
     }
 
     render() {
@@ -30,6 +51,8 @@ class Todos extends Component {
                     value={this.state.currentTodoValue}
                     onChange={this.onTodoChange}
                 />
+
+                <Button onClick={this.onAddTodo}>Add</Button>
             </div>
         )
     }
