@@ -1,0 +1,7 @@
+.header {
+    @include flex-center();
+
+    background-color: $grey;
+    height: 8.5rem;
+    position: relative;
+}
