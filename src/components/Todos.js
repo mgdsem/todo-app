@@ -12,6 +12,8 @@ class Todos extends Component {
 
         this.onTodoChange = this.onTodoChange.bind(this);
         this.onAddTodo = this.onAddTodo.bind(this);
+        this.onRemoveAll = this.onRemoveAll.bind(this);
+
 
         this.state = {
             todos: [],
@@ -24,6 +26,7 @@ class Todos extends Component {
     }
 
     onAddTodo(e) {
+        e.preventDefault();
         const newTodo = {
             text: this.state.currentTodoValue,
             isDone: false,
@@ -32,7 +35,8 @@ class Todos extends Component {
         }
 
         this.setState(prevState => ({
-            todos: [...prevState.todos, newTodo]
+            todos: [...prevState.todos, newTodo],
+            currentTodoValue: ''
         }))
 
         // poniezj zla praktyka:
@@ -45,6 +49,10 @@ class Todos extends Component {
         //         todos: prevTodos
         //     }
         // })
+    }
+
+    onRemoveAll() {
+        this.setState({ todos: [] })
     }
 
     render() {
@@ -68,15 +76,19 @@ class Todos extends Component {
 
         return (
             <div className="todos">
-                <Input
-                    id="todo-input"
-                    placeholderText="What should I do?"
-                    labelText="to-do"
-                    value={this.state.currentTodoValue}
-                    onChange={this.onTodoChange}
-                />
+                <Button onClick={this.onRemoveAll}>Remove All</Button>
 
-                <Button onClick={this.onAddTodo}>Add</Button>
+                <form onSubmit={this.onAddTodo}>
+                    <Input
+                        id="todo-input"
+                        placeholderText="What should I do?"
+                        labelText="to-do"
+                        value={this.state.currentTodoValue}
+                        onChange={this.onTodoChange}
+                    />
+
+                    <Button>Add</Button>
+                </form>
 
                 <TodoList todos={this.state.todos} />
             </div>
