@@ -4,6 +4,7 @@ import uuid from 'uuid/v1';
 
 import Input from './Input';
 import Button from './Button';
+import TodoList from './TodoList';
 
 class Todos extends Component {
     constructor(props) {
@@ -76,6 +77,8 @@ class Todos extends Component {
                 />
 
                 <Button onClick={this.onAddTodo}>Add</Button>
+
+                <TodoList todos={this.state.todos} />
             </div>
         )
     }
