@@ -13,6 +13,8 @@ class Todos extends Component {
         this.onTodoChange = this.onTodoChange.bind(this);
         this.onAddTodo = this.onAddTodo.bind(this);
         this.onRemoveAll = this.onRemoveAll.bind(this);
+        this.onRemoveItem = this.onRemoveItem.bind(this);
+        this.onCrossItem = this.onCrossItem.bind(this);
 
 
         this.state = {
@@ -55,6 +57,29 @@ class Todos extends Component {
         this.setState({ todos: [] })
     }
 
+    onRemoveItem(id) {
+        console.log(id);
+        this.setState(prevState => ({
+            todos: prevState.todos.filter(todo => {
+                return id !== todo.id;
+            })
+        }))
+    }
+
+    onCrossItem(id) {
+        console.log('onCrossItem');
+        this.setState(prevState => ({
+            todos: prevState.todos.map(todo => {
+                return {
+                    id: todo.id,
+                    text: todo.text,
+                    createdAt: todo.createdAt,
+                    isDone: id === todo.id
+                }
+            })
+        }))
+    }
+
     render() {
         console.log(this.state);
 
@@ -90,7 +115,7 @@ class Todos extends Component {
                     <Button>Add</Button>
                 </form>
 
-                <TodoList todos={this.state.todos} />
+                <TodoList todos={this.state.todos} removeItem={this.onRemoveItem} crossItem={this.onCrossItem} />
             </div>
         )
     }

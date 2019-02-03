@@ -4,3 +4,7 @@
     background-color: $todos-background-color;
     margin-top: 3rem;
 }
+
+.is-done {
+    text-decoration: line-through;
+}
